@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="关于ES6和JavaScript的关系ES6是对于ES2015+的俗称，也可以说是通常叫法，那么，ES6是什么呢？ES 全称是ECMAScript，它是JavaScript基础构建的一种语言，JavaScript正是建立在ECMAScript语言的基础规范中建立使用的，那么，ECMAScript的使用，对于JavaScript至关重要！在我的理解中，ECMAScript是一种语言层面的东西，它只是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6 新特性">
+<meta property="og:url" content="http://example.com/2023/08/20/intro-es6/index.html">
+<meta property="og:site_name" content="YcbBlog">
+<meta property="og:description" content="关于ES6和JavaScript的关系ES6是对于ES2015+的俗称，也可以说是通常叫法，那么，ES6是什么呢？ES 全称是ECMAScript，它是JavaScript基础构建的一种语言，JavaScript正是建立在ECMAScript语言的基础规范中建立使用的，那么，ECMAScript的使用，对于JavaScript至关重要！在我的理解中，ECMAScript是一种语言层面的东西，它只是">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-20T04:39:04.000Z">
+<meta property="article:modified_time" content="2023-08-21T04:58:18.536Z">
+<meta property="article:author" content="Yancaibing">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/08/20/intro-es6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ES6 新特性 | YcbBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">YcbBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/20/intro-es6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="Yancaibing">
+      <meta itemprop="description" content="了解真相获得真正的自由">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YcbBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ES6 新特性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-20 12:39:04" itemprop="dateCreated datePublished" datetime="2023-08-20T12:39:04+08:00">2023-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-21 12:58:18" itemprop="dateModified" datetime="2023-08-21T12:58:18+08:00">2023-08-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="关于ES6和JavaScript的关系"><a href="#关于ES6和JavaScript的关系" class="headerlink" title="关于ES6和JavaScript的关系"></a>关于ES6和JavaScript的关系</h2><p>ES6是对于ES2015+的俗称，也可以说是通常叫法，那么，ES6是什么呢？ES 全称是ECMAScript，它是JavaScript基础构建的一种语言，JavaScript正是建立在ECMAScript语言的基础规范中建立使用的，那么，ECMAScript的使用，对于JavaScript至关重要！在我的理解中，ECMAScript是一种语言层面的东西，它只是定义了JavaScript以及在它基础之上建立的其他语言的语法规范，而JavaScript的语言，更关于一种平台性质在其中。JavaScript包括 ECMAScript、DOM、BOM三个组成部分，DOM和BOM是web API提供的接口或者是JavaScript和浏览器之间进行交互的部分，实质就是操纵文档元素，进行展示布局，而ECMAScript在JavaScript中其中语法的作用，它不会去跟文档有直接的关系，但是他的数据处理完成后会通过web API展示在文档中。</p>
+<h2 id="ES6新特性的分类"><a href="#ES6新特性的分类" class="headerlink" title="ES6新特性的分类"></a>ES6新特性的分类</h2><ul>
+<li>解决原有语法上的一些不足 比如let 和 const 的块级作用域</li>
+<li>对原有语法进行增强 比如解构、展开、参数默认值、模板字符串</li>
+<li>全新的对象、全新的方法、全新的功能 比如promise、proxy、object的assign、is</li>
+<li>全新的数据类型和数据结构 比如symbol、set、map</li>
+</ul>
+<h3 id="let、const-块级作用域以及和-var-的区别"><a href="#let、const-块级作用域以及和-var-的区别" class="headerlink" title="let、const 块级作用域以及和 var 的区别"></a>let、const 块级作用域以及和 var 的区别</h3><ul>
+<li><p>let、const 声明的变量，在 for，if 语句中，会形成块级作用域，块级作用域内的变量，不能被作用域外部使用</p>
+</li>
+<li><p>let、const 声明变量不再会有声明提升，在变量声明之前使用运行时会报错</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//块级作用域一级块级作用域的使用</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> param = <span class="string">&#x27;param in if block&#x27;</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(param) <span class="comment">//param in if block</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(param) <span class="comment">//块级作用域外访问内部定义的变量，ReferenceError: param is not defined</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>块级作用域声明变量，会出现“暂时性死区”，块级作用域声明变量前使用变量，将会报错</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 暂时性死区</span></span><br><span class="line"><span class="keyword">const</span> i = <span class="number">100</span></span><br><span class="line"><span class="keyword">if</span> (i) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(i) <span class="comment">//ReferenceError: Cannot access &#x27;i&#x27; before initialization</span></span><br><span class="line">  <span class="keyword">const</span> i = <span class="number">1000</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>const 声明的是一个常量，声明必须初始化</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// const常量声明必须初始化</span></span><br><span class="line"><span class="keyword">const</span> i;</span><br><span class="line">i = <span class="number">10</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(i) <span class="comment">//SyntaxError: Missing initializer in const declaration</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果 const 声明的是基本类型常量，初始化之后不能修改；引用类型的常量，可以修改其成员变量；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 基本类型常量不能修改，引用类型常量能修改属性</span></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">&#x27;str&#x27;</span></span><br><span class="line">str = <span class="string">&#x27;str1&#x27;</span> <span class="comment">//TypeError: Assignment to constant variable.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">arr[<span class="number">0</span>] = <span class="number">100</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr[<span class="number">0</span>]) <span class="comment">//100</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>和 var 的区别</p>
+<table>
+<thead>
+<tr>
+<th>声明方式</th>
+<th>变量提升</th>
+<th>作用域</th>
+<th>初始值</th>
+<th>重复定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>var</td>
+<td>是</td>
+<td>函数级</td>
+<td>不需要</td>
+<td>允许</td>
+</tr>
+<tr>
+<td>let</td>
+<td>否</td>
+<td>块级</td>
+<td>不需要</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td>const</td>
+<td>否</td>
+<td>块级</td>
+<td>必需</td>
+<td>不允许</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="解构-快速提取数组-对象中的元素"><a href="#解构-快速提取数组-对象中的元素" class="headerlink" title="解构-快速提取数组&#x2F;对象中的元素"></a>解构-快速提取数组&#x2F;对象中的元素</h3><ul>
+<li><p>数组解构</p>
+<ul>
+<li><p>单独解构-根据数组索引，将数组解构成单独的元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> [a, b, c] = arr</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a, b, c) <span class="comment">//1,2,3</span></span><br><span class="line"><span class="keyword">const</span> [, , d] = arr</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(d) <span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>默认值，解构时可以给变量设置默认值，数组没有这个元素的话</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> [, , , defaultVal = <span class="string">&#x27;4&#x27;</span>] = arr</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;设置默认值&#x27;</span>, defaultVal)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>剩余解构-用 “…+变量名” 解构剩余参数到新数组，只能用一次</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> [e, ...rest] = arr</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(rest) <span class="comment">//[2, 3]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实例应用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 拆分字符串</span></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">&#x27;xiaobai/18/200&#x27;</span></span><br><span class="line"><span class="keyword">const</span> strArr = str.<span class="title function_">split</span>(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> [, age] = strArr</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(age) <span class="comment">//18</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>对象解构</p>
+<ul>
+<li><p>单个&#x2F;多个解构-跟数组解构差不多</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123; <span class="attr">name</span>: <span class="string">&#x27;xiaohui&#x27;</span>, <span class="attr">age</span>: <span class="number">18</span>, <span class="attr">height</span>: <span class="literal">undefined</span> &#125;</span><br><span class="line"><span class="keyword">const</span> &#123; name, age &#125; = obj</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(name, age) <span class="comment">// &#x27;xiaohui&#x27;, 18</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解构+重命名-给解构出来的变量重命名</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123; <span class="attr">name</span>: <span class="string">&#x27;xiaohui&#x27;</span>, <span class="attr">age</span>: <span class="number">18</span>, <span class="attr">height</span>: <span class="literal">undefined</span> &#125;</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="attr">name</span>: objName &#125; = obj</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(objName)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>默认值-给解构变量设置默认值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123; <span class="attr">name</span>: <span class="string">&#x27;xiaohui&#x27;</span>, <span class="attr">age</span>: <span class="number">18</span>, <span class="attr">height</span>: <span class="literal">undefined</span> &#125;</span><br><span class="line"><span class="keyword">const</span> &#123; next = <span class="string">&#x27;default&#x27;</span> &#125; = obj</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(next)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h3><p>用法：使用&#96;&#96;将字符串包裹起来<br>功能：可以换行、插值、使用标签函数进行字符串操作</p>
+<ul>
+<li><p>换行&#x2F;插值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//换行</span></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">`fdsjak</span></span><br><span class="line"><span class="string">    fdsa`</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 插值</span></span><br><span class="line"><span class="keyword">const</span> strs = <span class="string">`random: <span class="subst">$&#123;<span class="built_in">Math</span>.random()&#125;</span>`</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(strs)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>标签函数-可以对模板字符串的字符串和插值进行处理和过滤等操作</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 字符串模板函数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">array</span>&#125; strs 以插值为分隔符组成的字符串数组</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">string</span>&#125; name 插值的value，有多少个就会传入多少个</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">tagFunc</span> = (<span class="params">strs, name, gender</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [str1, str2, str3] = strs</span><br><span class="line">  <span class="keyword">const</span> genderParsed = gender == <span class="string">&#x27;1&#x27;</span> ? <span class="string">&#x27;男&#x27;</span> : <span class="string">&#x27;女&#x27;</span></span><br><span class="line">  <span class="comment">// 可以在此做过滤，字符串处理，多语言等操作</span></span><br><span class="line">  <span class="keyword">return</span> str1 + name + str2 + str3 + genderParsed</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 带标签的模板字符串,</span></span><br><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;xiaohui&#x27;</span>,</span><br><span class="line">  <span class="attr">gender</span>: <span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 返回值为标签函数的返回值</span></span><br><span class="line"><span class="keyword">const</span> result = tagFunc<span class="string">`my name is <span class="subst">$&#123;person.name&#125;</span>.gender is <span class="subst">$&#123;person.gender&#125;</span>`</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result) <span class="comment">//my name is xiaohui.gender is 男</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="字符串扩展方法"><a href="#字符串扩展方法" class="headerlink" title="字符串扩展方法"></a>字符串扩展方法</h3><ul>
+<li><p>includes-是否包含</p>
+</li>
+<li><p>startsWith-是否以什么开始</p>
+</li>
+<li><p>endsWith-是否以什么结束</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">&#x27;abcd&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">includes</span>(<span class="string">&#x27;e&#x27;</span>)) <span class="comment">//false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">startsWith</span>(<span class="string">&#x27;a&#x27;</span>)) <span class="comment">//true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">endsWith</span>(<span class="string">&#x27;a&#x27;</span>)) <span class="comment">//false</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="参数默认值-剩余参数"><a href="#参数默认值-剩余参数" class="headerlink" title="参数默认值&amp;剩余参数"></a>参数默认值&amp;剩余参数</h3><ul>
+<li><p>给函数形参设置默认值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 带默认参数的形参一般放在后面，减少传参导致的错误几率</span></span><br><span class="line"><span class="keyword">const</span> defaultParams = <span class="keyword">function</span> (<span class="params">name, age = <span class="number">0</span></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> [age, name]</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">defaultParams</span>(<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用…rest 形式设置剩余形参，支持无限参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 剩余参数，转化成数组</span></span><br><span class="line"><span class="keyword">const</span> restParams = <span class="keyword">function</span> (<span class="params">...args</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(args.<span class="title function_">toString</span>()) <span class="comment">//1, 2, 3, 4, 5</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">restParams</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="展开数组"><a href="#展开数组" class="headerlink" title="展开数组"></a>展开数组</h3><ul>
+<li><p>使用…将数组展开</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(...arr)</span><br><span class="line"><span class="comment">// 等价于es5中以下写法</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="property">log</span>.<span class="title function_">apply</span>(<span class="variable language_">console</span>, arr)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><p>特性&amp;优势：</p>
+<ol>
+<li><p>简化了函数的写法</p>
+</li>
+<li><p>没有 this 机制，this 继承自上一个函数的上下文，如果上一层没有函数，则指向 window</p>
+</li>
+<li><p>作为异步回调函数时，可解决 this 指向问题</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">inc</span> = (<span class="params">n</span>) =&gt; n + <span class="number">1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">inc</span>(<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;aa&#x27;</span>,</span><br><span class="line">  <span class="title function_">func</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>) <span class="comment">//aa</span></span><br><span class="line">    &#125;, <span class="number">0</span>)</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>) <span class="comment">//undefined</span></span><br><span class="line">    &#125;, <span class="number">0</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line">obj.<span class="title function_">func</span>()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="对象字面量增强"><a href="#对象字面量增强" class="headerlink" title="对象字面量增强"></a>对象字面量增强</h3><ul>
+<li><p>同名属性可以省略 key:value 形式，直接 key</p>
+</li>
+<li><p>函数可以省略 key：value 形式</p>
+</li>
+<li><p>可以直接 func()</p>
+</li>
+<li><p>可以使用计算属性，比如：{[Math.random()]: value}</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1、增强了对象字面量：</span></span><br><span class="line"><span class="comment"> * 1，同名属性可以省略key:value形式，直接key，</span></span><br><span class="line"><span class="comment"> * 2，函数可以省略key：value形式</span></span><br><span class="line"><span class="comment"> * 3，可以直接func(),</span></span><br><span class="line"><span class="comment"> * 4，可以使用计算属性，比如：&#123;[Math.random()]: value&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  arr,</span><br><span class="line">  <span class="title function_">func</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">arr</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  [<span class="title class_">Math</span>.<span class="title function_">random</span>()]: arr,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Object-assign-target1-target2-targetN"><a href="#Object-assign-target1-target2-targetN" class="headerlink" title="Object.assign(target1, target2, targetN)"></a>Object.assign(target1, target2, targetN)</h3><ul>
+<li><p>复制&#x2F;合并对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Object.assign(target1, target2, ...targetn)</span></span><br><span class="line"><span class="comment"> * 后面的属性向前面的属性合并</span></span><br><span class="line"><span class="comment"> * 如果target1是空对象，可以创建一个全新对象，而不是对象引用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> obj1 = &#123;</span><br><span class="line">  <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">b</span>: <span class="number">2</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> obj2 = &#123;</span><br><span class="line">  <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">b</span>: <span class="number">2</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj3 = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, obj1)</span><br><span class="line">obj3.<span class="property">a</span> = <span class="number">5</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj3, obj2, obj1)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Object-is-value1-value2"><a href="#Object-is-value1-value2" class="headerlink" title="Object.is(value1, value2)"></a>Object.is(value1, value2)</h3><p>作用：比较两个值是否相等<br>特性：</p>
+<ul>
+<li><p>没有隐式转换</p>
+</li>
+<li><p>可以比较+0,-0、NaN</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">NaN</span> === <span class="title class_">NaN</span>) <span class="comment">//false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Object</span>.<span class="title function_">is</span>(<span class="title class_">NaN</span>, <span class="title class_">NaN</span>)) <span class="comment">//true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">0</span> === -<span class="number">0</span>) <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Object</span>.<span class="title function_">is</span>(<span class="number">0</span>, -<span class="number">0</span>)) <span class="comment">//false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Object</span>.<span class="title function_">is</span>(<span class="number">1</span>, <span class="number">1</span>)) <span class="comment">//true</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Proxy-object-handler"><a href="#Proxy-object-handler" class="headerlink" title="Proxy(object, handler)"></a>Proxy(object, handler)</h3><p>作用：</p>
+<ul>
+<li><p>代理一个对象的所有，包括读写操作和各种操作的监听</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> P = &#123;</span><br><span class="line">  <span class="attr">n</span>: <span class="string">&#x27;p&#x27;</span>,</span><br><span class="line">  <span class="attr">a</span>: <span class="number">19</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> proxy = <span class="keyword">new</span> <span class="title class_">Proxy</span>(P, &#123;</span><br><span class="line">  <span class="title function_">get</span>(<span class="params">target, property</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(target, property)</span><br><span class="line">    <span class="keyword">return</span> property <span class="keyword">in</span> target ? target[property] : <span class="literal">null</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">defineProperty</span>(<span class="params">target, property, attrs</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(target, property, attrs)</span><br><span class="line">    <span class="comment">//   throw new Error(&#x27;不允许修改&#x27;)</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">deleteProperty</span>(<span class="params">target, property</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(target, property)</span><br><span class="line">    <span class="keyword">delete</span> target[property]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">set</span>(<span class="params">target, property, value</span>) &#123;</span><br><span class="line">    target[property] = value</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">proxy.<span class="property">c</span> = <span class="number">100</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;pp&#x27;</span>, P)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>与 Object.definePropert 对比</p>
+<ul>
+<li>拥有很多 defineProperty 没有的属性方法，比如:<ul>
+<li>handler.getPrototypeOf() —Object.getPrototypeOf 方法的监听器</li>
+<li>handler.setPrototypeOf() —Object.setPrototypeOf 方法的监听器。</li>
+<li>handler.isExtensible() —Object.isExtensible 方法的监听器。</li>
+<li>handler.preventExtensions() —Object.preventExtensions 方法的监听器。</li>
+<li>handler.getOwnPropertyDescriptor() —Object.getOwnPropertyDescriptor 方法的监听器。</li>
+<li>handler.defineProperty() —Object.defineProperty 方法的监听器。</li>
+<li>handler.has() —in 操作符的监听器。</li>
+<li>handler.get() —属性读取操作的监听器。</li>
+<li>handler.set() —属性设置操作的监听器。</li>
+<li>handler.deleteProperty() —delete 操作符的监听器</li>
+<li>handler.ownKeys() —Object.getOwnPropertyNames 方法和 Object.getOwnPropertySymbols 方法的监听器。</li>
+<li>handler.apply() —函数调用操作的监听器。</li>
+<li>handler.construct() —new 操作符的监听器。</li>
+</ul>
+</li>
+<li>对数组的监视更方便</li>
+<li>以非侵入的访视监管对象的读写</li>
+</ul>
+<h3 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h3><p>集成 Object 操作的所有方法，统一、方便，具体方法如下：<br>用于对对象的统一操作，集成 Object 相关的所有方法</p>
+<ol>
+<li><p>apply：类似 Function.prototype.apply</p>
+</li>
+<li><p>Reflect.construct() 对构造函数进行 new 操作，相当于执行 new target(…args)。</p>
+</li>
+<li><p>Reflect.defineProperty() 和 Object.defineProperty() 类似。</p>
+</li>
+<li><p>Reflect.deleteProperty() 作为函数的 delete 操作符，相当于执行 delete target[name]。</p>
+</li>
+<li><p>Reflect.get() 获取对象身上某个属性的值，类似于 target[name]。</p>
+</li>
+<li><p>Reflect.getOwnPropertyDescriptor() 类似于 Object.getOwnPropertyDescriptor()。</p>
+</li>
+<li><p>Reflect.getPrototypeOf() 类似于 Object.getPrototypeOf(), 获取目标对象的原型。</p>
+</li>
+<li><p>Reflect.has() 判断一个对象是否存在某个属性，和 in 运算符 的功能完全相同。</p>
+</li>
+<li><p>Reflect.isExtensible() 类似于 Object.isExtensible().判断对象是否可扩展，可以添加额外属性, Object.seal(封闭对象)， Object.freeze（冻结对象）是不可扩展的</p>
+</li>
+<li><p>Reflect.ownKeys() 返回一个包含所有自身属性（不包含继承属性）的数组。(类似于 Object.keys(), 但不会受 enumerable 影响)。</p>
+</li>
+<li><p>Reflect.preventExtensions() 类似于 Object.preventExtensions()。返回一个 Boolean。</p>
+</li>
+<li><p>Reflect.set() 将值分配给属性的函数。返回一个 Boolean，如果更新成功，则返回 true, 反之返回 false。</p>
+</li>
+<li><p>Reflect.setPrototypeOf() 类似于 Object.setPrototypeOf()。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;reflect&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">preventExtensions</span>(obj) <span class="comment">//禁止扩展</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Reflect</span>.<span class="title function_">set</span>(obj, <span class="string">&#x27;age&#x27;</span>, <span class="string">&#x27;xiaobai&#x27;</span>)) <span class="comment">//false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj) <span class="comment">//&#123; name: &#x27;reflect&#x27; &#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Reflect</span>.<span class="title function_">isExtensible</span>(obj, <span class="string">&#x27;name&#x27;</span>)) <span class="comment">//false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Reflect</span>.<span class="title function_">ownKeys</span>(obj)) <span class="comment">//[ &#x27;name&#x27; ]</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h3><p>作用：解决异步编程中回调嵌套过深问题</p>
+<h3 id="class-静态方法-继承"><a href="#class-静态方法-继承" class="headerlink" title="class&amp;静态方法&amp;继承"></a>class&amp;静态方法&amp;继承</h3><ul>
+<li><p>使用 class 关键字定义类</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">props</span> = props</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实例方法，需要实例化之后才能调用，this 指向实例</p>
+</li>
+<li><p>静态方法，用 static 修饰符修饰，可以直接通过类名调用，不需要实例化，this 不指向实例，而是指向当前类</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">props</span> = props</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 实例方法</span></span><br><span class="line">  <span class="title function_">eat</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">  <span class="comment">// 静态方法</span></span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">run</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 调用静态方法</span></span><br><span class="line"><span class="title class_">Person</span>.<span class="title function_">run</span>()</span><br><span class="line"><span class="keyword">const</span> person = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;props&#x27;</span>)</span><br><span class="line"><span class="comment">// 调用实例方法</span></span><br><span class="line">person.<span class="title function_">eat</span>()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>继承：子类使用 extends 关键字实现继承，可以继承父类所有属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Person</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>(props)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">printProps</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">props</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> student = <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&#x27;student&#x27;</span>)</span><br><span class="line">student.<span class="title function_">printProps</span>()</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p>说明：Set 是一种类似于数组的数据结构<br>特性：</p>
+<ul>
+<li>元素唯一性，不允许重复元素</li>
+<li>使用 add 增加重复元素，将会被忽略</li>
+</ul>
+<p>用途：</p>
+<ul>
+<li><p>数组去重</p>
+</li>
+<li><p>数据存储</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"><span class="keyword">const</span> set = <span class="keyword">new</span> <span class="title class_">Set</span>(arr)</span><br><span class="line">set.<span class="title function_">add</span>(<span class="number">1</span>).<span class="title function_">add</span>(<span class="number">1</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(set.<span class="property">size</span>) <span class="comment">//2</span></span><br><span class="line"><span class="keyword">const</span> newArr = <span class="title class_">Array</span>.<span class="title function_">from</span>(set)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArr) <span class="comment">//[ 1, 3 ]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><ul>
+<li><p>类似 Object，以 key、value 形式存储数据</p>
+</li>
+<li><p>Map 键不会隐式转换成字符串，而是保持原有类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="title class_">Map</span>()</span><br><span class="line">map.<span class="title function_">set</span>(<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">map.<span class="title function_">set</span>(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;map&#x27;</span>)</span><br><span class="line">map.<span class="title function_">set</span>(obj, obj)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(map.<span class="title function_">get</span>(<span class="number">1</span>)) <span class="comment">//1</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">        1 1</span></span><br><span class="line"><span class="comment">        name map</span></span><br><span class="line"><span class="comment">        &#123; &#x27;1&#x27;: 1, true: true, a: &#x27;a&#x27; &#125; &#123; &#x27;1&#x27;: 1, true: true, a: &#x27;a&#x27; &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">map.<span class="title function_">forEach</span>(<span class="function">(<span class="params">val, key</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(key, val)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h3><p>JavaScript 第六种原始数据类型，用来定义一个唯一的变量</p>
+<p>作用：</p>
+<ul>
+<li>创建唯一的变量，解决对象键名重复问题</li>
+<li>为对象、类、函数等创建私有属性</li>
+<li>修改对象的 toString 标签</li>
+<li>为对象添加迭代器属性</li>
+</ul>
+<p>如何获取对象的 symbol 属性？</p>
+<ul>
+<li><p>Object.getOwnPropertySymbols(object)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象属性重名问题；</span></span><br><span class="line"><span class="keyword">const</span> objSymbol = &#123;</span><br><span class="line">  [<span class="title class_">Symbol</span>()]: <span class="number">1</span>,</span><br><span class="line">  [<span class="title class_">Symbol</span>()]: <span class="number">2</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(objSymbol)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、为对象、类、函数等创建私有属性</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="title class_">Symbol</span>()</span><br><span class="line"><span class="keyword">const</span> obj2 = &#123;</span><br><span class="line">  [name]: <span class="string">&#x27;symbol&#x27;</span>,</span><br><span class="line">  <span class="title function_">testPrivate</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>[name])</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj2.<span class="title function_">testPrivate</span>()</span><br><span class="line"><span class="comment">// 定义toString标签；</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2.<span class="title function_">toString</span>())</span><br><span class="line">obj2[<span class="title class_">Symbol</span>.<span class="property">toStringTag</span>] = <span class="string">&#x27;xx&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2.<span class="title function_">toString</span>()) <span class="comment">//[object xx]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="for…of"><a href="#for…of" class="headerlink" title="for…of"></a>for…of</h3><ul>
+<li><p>用途：已统一的方式，遍历所有引用数据类型</p>
+</li>
+<li><p>特性：可以随时使用 break 终止遍历，而 forEach 不行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本用法</span></span><br><span class="line"><span class="comment">// 遍历数组</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> item <span class="keyword">of</span> arr) &#123;</span><br><span class="line">  <span class="keyword">if</span> (item &gt; <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="keyword">break</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (item &gt; <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(item)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历set</span></span><br><span class="line"><span class="keyword">const</span> set = <span class="keyword">new</span> <span class="title class_">Set</span>()</span><br><span class="line">set.<span class="title function_">add</span>(<span class="string">&#x27;foo&#x27;</span>).<span class="title function_">add</span>(<span class="string">&#x27;bar&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> item <span class="keyword">of</span> set) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set for of&#x27;</span>, item)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 遍历map</span></span><br><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="title class_">Map</span>()</span><br><span class="line">map.<span class="title function_">set</span>(<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;one&#x27;</span>).<span class="title function_">set</span>(<span class="string">&#x27;bar&#x27;</span>, <span class="string">&#x27;two&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> [key, val] <span class="keyword">of</span> map) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;for of map&#x27;</span>, key, val)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//迭代对象</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;xiaohui&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="string">&#x27;10&#x27;</span>,</span><br><span class="line">  <span class="attr">store</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  <span class="comment">// 实现可迭代的接口</span></span><br><span class="line">  [<span class="title class_">Symbol</span>.<span class="property">iterator</span>]: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> params = [<span class="variable language_">this</span>.<span class="property">name</span>, <span class="variable language_">this</span>.<span class="property">age</span>, <span class="variable language_">this</span>.<span class="property">store</span>]</span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="title function_">next</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> ret = &#123;</span><br><span class="line">          <span class="attr">value</span>: params[index],</span><br><span class="line">          <span class="attr">done</span>: index &gt;= params.<span class="property">length</span>,</span><br><span class="line">        &#125;</span><br><span class="line">        index++</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> item <span class="keyword">of</span> obj) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;obj for of&#x27;</span>, item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h3><ul>
+<li><p>作用：通过 Symbol.interator 对外提供统一的接口，获取内部的数据</p>
+</li>
+<li><p>外部可以通过 for…of…去迭代内部的数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> tods = &#123;</span><br><span class="line">  <span class="attr">life</span>: [<span class="string">&#x27;eat&#x27;</span>, <span class="string">&#x27;sleep&#x27;</span>],</span><br><span class="line">  <span class="attr">learn</span>: [<span class="string">&#x27;js&#x27;</span>, <span class="string">&#x27;dart&#x27;</span>],</span><br><span class="line">  <span class="comment">// 增加的任务</span></span><br><span class="line">  <span class="attr">work</span>: [<span class="string">&#x27;sale&#x27;</span>, <span class="string">&#x27;customer&#x27;</span>],</span><br><span class="line">  [<span class="title class_">Symbol</span>.<span class="property">iterator</span>]: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> all = []</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">keys</span>(<span class="variable language_">this</span>).<span class="title function_">forEach</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">      all.<span class="title function_">push</span>(...<span class="variable language_">this</span>[key])</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="title function_">next</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> ret = &#123;</span><br><span class="line">          <span class="attr">value</span>: all[index],</span><br><span class="line">          <span class="attr">done</span>: index &gt;= all.<span class="property">length</span>,</span><br><span class="line">        &#125;</span><br><span class="line">        index++</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> item <span class="keyword">of</span> tods) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Generator-生成器"><a href="#Generator-生成器" class="headerlink" title="Generator 生成器"></a>Generator 生成器</h3><ul>
+<li><p>函数前添加 *，生成一个生成器</p>
+</li>
+<li><p>一般配合 yield 关键字使用</p>
+</li>
+<li><p>最大特点，惰性执行，调 next 才会往下执行</p>
+</li>
+<li><p>主要用来解决异步回调过深的问题</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成迭代器方法</span></span><br><span class="line"><span class="comment">//  生成器Generator的应用</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span>* <span class="title function_">createIdGenerator</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> id = <span class="number">1</span></span><br><span class="line">  <span class="keyword">while</span> (id &lt; <span class="number">3</span>) <span class="keyword">yield</span> id++</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> createId = <span class="title function_">createIdGenerator</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(createId.<span class="title function_">next</span>()) <span class="comment">//&#123; value: 1, done: false &#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(createId.<span class="title function_">next</span>()) <span class="comment">//&#123; value: 2, done: false &#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(createId.<span class="title function_">next</span>()) <span class="comment">//&#123; value: undefined, done: true &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> todos = &#123;</span><br><span class="line">  <span class="attr">life</span>: [<span class="string">&#x27;eat&#x27;</span>, <span class="string">&#x27;sleep&#x27;</span>, <span class="string">&#x27;baba&#x27;</span>],</span><br><span class="line">  <span class="attr">learn</span>: [<span class="string">&#x27;es5&#x27;</span>, <span class="string">&#x27;es6&#x27;</span>, <span class="string">&#x27;design pattern&#x27;</span>],</span><br><span class="line">  <span class="attr">work</span>: [<span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;framework&#x27;</span>],</span><br><span class="line">  [<span class="title class_">Symbol</span>.<span class="property">iterator</span>]: <span class="keyword">function</span>* () &#123;</span><br><span class="line">    <span class="keyword">const</span> all = [...<span class="variable language_">this</span>.<span class="property">life</span>, ...<span class="variable language_">this</span>.<span class="property">learn</span>, ...<span class="variable language_">this</span>.<span class="property">work</span>]</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> i <span class="keyword">of</span> all) &#123;</span><br><span class="line">      <span class="keyword">yield</span> i</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> item <span class="keyword">of</span> todos) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="includes-函数-es2016"><a href="#includes-函数-es2016" class="headerlink" title="includes 函数-es2016"></a>includes 函数-es2016</h3><ul>
+<li><p>判断数组是否包含某个元素，包含 NaN，解决 indexOf 无法查找 NaN 问题</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  includes函数</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>, <span class="string">&#x27;baz&#x27;</span>, <span class="title class_">NaN</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">includes</span>(<span class="title class_">NaN</span>)) <span class="comment">//true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">indexOf</span>(<span class="title class_">NaN</span>)) <span class="comment">//-1</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="运算符-es2016"><a href="#运算符-es2016" class="headerlink" title="运算符-es2016"></a>运算符-es2016</h3><ul>
+<li><p>指数运算</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指数运算符 **</span></span><br><span class="line"><span class="comment">// es5中2十次方</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="number">2</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment">// es6中2十次方</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span> ** <span class="number">10</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="values-函数-es2017"><a href="#values-函数-es2017" class="headerlink" title="values 函数-es2017"></a>values 函数-es2017</h3><ul>
+<li><p>将对象的值以数组的形式返回</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">foo</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">bar</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">baz</span>: <span class="number">3</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Object</span>.<span class="title function_">values</span>(obj)) <span class="comment">//[ 1, 2, 3 ]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="entries-函数-es2017"><a href="#entries-函数-es2017" class="headerlink" title="entries 函数-es2017"></a>entries 函数-es2017</h3><ul>
+<li><p>将对象以键值对二维数组返回，使之可以使用 for…of…遍历</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">foo</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">bar</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">baz</span>: <span class="number">3</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Object</span>.<span class="title function_">entries</span>(obj))</span><br><span class="line"><span class="keyword">const</span> entry = <span class="title class_">Object</span>.<span class="title function_">entries</span>(obj)</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> [key, value] <span class="keyword">of</span> entry) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(key, value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Object-getOwnPropertyDescriptors-obj-es2017"><a href="#Object-getOwnPropertyDescriptors-obj-es2017" class="headerlink" title="Object.getOwnPropertyDescriptors(obj)-es2017"></a>Object.getOwnPropertyDescriptors(obj)-es2017</h3><ul>
+<li><p>获取对象的描述信息 可以通过获得的描述信息，配合 Object.defineProperties 来完整复制对象，包含 get，set 方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// getOwnPropertyDescriptors</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 普通get方法</span></span><br><span class="line"><span class="keyword">const</span> objGet = &#123;</span><br><span class="line">  <span class="attr">foo</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">bar</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="keyword">get</span> <span class="title function_">getCount</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">foo</span> + <span class="variable language_">this</span>.<span class="property">bar</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// assign方法会把getCount当做普通属性复制，从而getCount为3，修改bar不管用</span></span><br><span class="line"><span class="keyword">const</span> objGet1 = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, objGet)</span><br><span class="line">objGet1.<span class="property">bar</span> = <span class="number">3</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(objGet1.<span class="property">getCount</span>) <span class="comment">//3</span></span><br><span class="line"><span class="comment">// descriptors</span></span><br><span class="line"><span class="keyword">const</span> descriptors = <span class="title class_">Object</span>.<span class="title function_">getOwnPropertyDescriptors</span>(objGet)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;des&#x27;</span>, descriptors)</span><br><span class="line"><span class="comment">// 通过descriptors来复制对象，可以完整复制对象，包含get，set</span></span><br><span class="line"><span class="keyword">const</span> objGet2 = <span class="title class_">Object</span>.<span class="title function_">defineProperties</span>(&#123;&#125;, descriptors)</span><br><span class="line">objGet2.<span class="property">bar</span> = <span class="number">3</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(objGet2.<span class="property">getCount</span>) <span class="comment">//4</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="padStart-padEnd-函数-es2017"><a href="#padStart-padEnd-函数-es2017" class="headerlink" title="padStart, padEnd 函数-es2017"></a>padStart, padEnd 函数-es2017</h3><p>在字符串前，或者后面追加指定字符串</p>
+<ul>
+<li><p>参数：targetLenght: 填充后的目标长度 padString:填充的字符串</p>
+</li>
+<li><p>规则：</p>
+<ol>
+<li>填充的字符串超过目标长度，会在规定长度时被截断</li>
+<li>填充字符串太短会以空格填充</li>
+<li>padString 未传值，以空格填充</li>
+</ol>
+</li>
+<li><p>作用：一般用来对齐字符串输出</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  foo.................|1</span></span><br><span class="line"><span class="comment">    barbar..............|2</span></span><br><span class="line"><span class="comment">    bazbazbaz...........|3</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123;key.padEnd(<span class="number">20</span>, <span class="string">&#x27;.&#x27;</span>)&#125;</span><span class="subst">$&#123;value.toString().padStart(<span class="number">2</span>, <span class="string">&#x27;|&#x27;</span>)&#125;</span>`</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/20/intro-set-map/" rel="next" title="Set 和 Map">
+      Set 和 Map <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EES6%E5%92%8CJavaScript%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.</span> <span class="nav-text">关于ES6和JavaScript的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6%E6%96%B0%E7%89%B9%E6%80%A7%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">ES6新特性的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#let%E3%80%81const-%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%92%8C-var-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.1.</span> <span class="nav-text">let、const 块级作用域以及和 var 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%84-%E5%BF%AB%E9%80%9F%E6%8F%90%E5%8F%96%E6%95%B0%E7%BB%84-%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">2.2.</span> <span class="nav-text">解构-快速提取数组&#x2F;对象中的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.3.</span> <span class="nav-text">模板字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">字符串扩展方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E9%BB%98%E8%AE%A4%E5%80%BC-%E5%89%A9%E4%BD%99%E5%8F%82%E6%95%B0"><span class="nav-number">2.5.</span> <span class="nav-text">参数默认值&amp;剩余参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%95%E5%BC%80%E6%95%B0%E7%BB%84"><span class="nav-number">2.6.</span> <span class="nav-text">展开数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">2.7.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E5%A2%9E%E5%BC%BA"><span class="nav-number">2.8.</span> <span class="nav-text">对象字面量增强</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-assign-target1-target2-targetN"><span class="nav-number">2.9.</span> <span class="nav-text">Object.assign(target1, target2, targetN)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-is-value1-value2"><span class="nav-number">2.10.</span> <span class="nav-text">Object.is(value1, value2)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Proxy-object-handler"><span class="nav-number">2.11.</span> <span class="nav-text">Proxy(object, handler)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reflect"><span class="nav-number">2.12.</span> <span class="nav-text">Reflect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise"><span class="nav-number">2.13.</span> <span class="nav-text">Promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class-%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95-%E7%BB%A7%E6%89%BF"><span class="nav-number">2.14.</span> <span class="nav-text">class&amp;静态方法&amp;继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set"><span class="nav-number">2.15.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map"><span class="nav-number">2.16.</span> <span class="nav-text">Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Symbol"><span class="nav-number">2.17.</span> <span class="nav-text">Symbol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for%E2%80%A6of"><span class="nav-number">2.18.</span> <span class="nav-text">for…of</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.19.</span> <span class="nav-text">迭代器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generator-%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">2.20.</span> <span class="nav-text">Generator 生成器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#includes-%E5%87%BD%E6%95%B0-es2016"><span class="nav-number">2.21.</span> <span class="nav-text">includes 函数-es2016</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6-es2016"><span class="nav-number">2.22.</span> <span class="nav-text">运算符-es2016</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#values-%E5%87%BD%E6%95%B0-es2017"><span class="nav-number">2.23.</span> <span class="nav-text">values 函数-es2017</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#entries-%E5%87%BD%E6%95%B0-es2017"><span class="nav-number">2.24.</span> <span class="nav-text">entries 函数-es2017</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-getOwnPropertyDescriptors-obj-es2017"><span class="nav-number">2.25.</span> <span class="nav-text">Object.getOwnPropertyDescriptors(obj)-es2017</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#padStart-padEnd-%E5%87%BD%E6%95%B0-es2017"><span class="nav-number">2.26.</span> <span class="nav-text">padStart, padEnd 函数-es2017</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yancaibing"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Yancaibing</p>
+  <div class="site-description" itemprop="description">了解真相获得真正的自由</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ycbing" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ycbing" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:ycbaiyt@gmail.com" title="E-Mail → mailto:ycbaiyt@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yancaibing</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
